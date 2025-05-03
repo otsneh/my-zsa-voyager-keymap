@@ -85,6 +85,36 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo3, TO(0)),
 };
 
+#ifdef COMBO_MUST_TAP_PER_COMBO
+bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
+    // Set all combos that have Mod-Tap/Layer-Tap/Momentary keys in the chord to be tap-only.
+    uint16_t key;
+    uint8_t idx = 0;
+    while ((key = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+        switch (key) {
+            case QK_MOD_TAP...QK_MOD_TAP_MAX:
+            case QK_LAYER_TAP...QK_LAYER_TAP_MAX:
+            case QK_MOMENTARY...QK_MOMENTARY_MAX:
+                return true;
+        }
+        idx += 1;
+    }
+    return false;
+
+}
+#endif
+
+#ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
+bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
+    switch (combo_index) {
+        case 2: // JK as ESC combo.
+            return true;
+        default:
+            return false;
+    }
+}
+#endif
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(1,KC_BSPC):
