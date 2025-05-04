@@ -128,6 +128,19 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    // QUICK_TAP_TERM is disabled by default.
+    switch (keycode) {
+        case LT(2,KC_J):
+        case MT(MOD_RGUI, KC_K):
+        case MT(MOD_RALT, KC_L):
+        case LT(1,KC_BSPC):
+            return TAPPING_TERM;
+        default:
+            return QUICK_TAP_TERM;
+    }
+}
+
 extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
