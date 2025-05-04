@@ -129,8 +129,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return g_tapping_term -65;
         case KC_LEFT_SHIFT:
             return g_tapping_term -65;
-        case MT_SHIFT_REP:
-            return g_tapping_term -65;
         default:
             return g_tapping_term;
     }
