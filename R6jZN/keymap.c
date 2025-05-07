@@ -110,6 +110,7 @@ bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
 bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
     switch (combo_index) {
         case 1: // JK as ESC combo.
+        case 3: // CV as tmux prefix combo.
             return true;
         default:
             return false;
