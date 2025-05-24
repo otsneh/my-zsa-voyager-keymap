@@ -16,7 +16,7 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(22, KC_F20)
+#define DUAL_FUNC_0 LT(31, KC_F19)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_TRANSPARENT, 
     KC_TRANSPARENT, MT(MOD_LCTL, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LGUI, KC_D),LT(3, KC_F),    KC_G,                                           KC_H,           LT(2, KC_J),    MT(MOD_RGUI, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RCTL, KC_QUOTE),KC_TRANSPARENT, 
     KC_TRANSPARENT, LT(4, KC_Z),    KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         LT(5, KC_SLASH),KC_TRANSPARENT, 
-                                                    LT(1, KC_BSPC), KC_TRANSPARENT,                                 MT(MOD_RSFT, KC_TAB),LT(1, KC_SPACE)
+                                                    KC_TRANSPARENT, MT(MOD_LSFT, KC_BSPC),                                MT(MOD_RSFT, KC_TAB),LT(1, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -84,8 +84,8 @@ combo_t key_combos[COMBO_COUNT] = {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(1, KC_BSPC):
-            return g_tapping_term -55;
+        case MT(MOD_LSFT, KC_BSPC):
+            return g_tapping_term -65;
         case MT(MOD_RSFT, KC_TAB):
             return g_tapping_term -65;
         default:
