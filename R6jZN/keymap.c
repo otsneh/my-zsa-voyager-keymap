@@ -4,7 +4,7 @@
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
 
-#define MT_SHIFT_REP MT(MOD_LSFT, KC_0)
+#define LT_SYM_REP LT(1, KC_0)
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
@@ -18,15 +18,15 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(22, KC_F20)
+#define DUAL_FUNC_0 LT(31, KC_F19)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,                                KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_PLAY_PAUSE,MAC_SIRI,       KC_TRANSPARENT, MAC_LOCK,       
     KC_TRANSPARENT, KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_TRANSPARENT, 
-    KC_TRANSPARENT, MT(MOD_LCTL, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LGUI, KC_D),LT(3,KC_F),     KC_G,                                           KC_H,           LT(2,KC_J),     MT(MOD_RGUI, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RCTL, KC_QUOTE),KC_TRANSPARENT, 
-    KC_TRANSPARENT, LT(4,KC_Z),     KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         LT(5,KC_SLASH), KC_TRANSPARENT, 
-                                                    LT(1,KC_BSPC),  MT_SHIFT_REP,                                  MT(MOD_RSFT, KC_TAB),LT(1,KC_SPACE)
+    KC_TRANSPARENT, MT(MOD_LCTL, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LGUI, KC_D),LT(3, KC_F),    KC_G,                                           KC_H,           LT(2, KC_J),    MT(MOD_RGUI, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RCTL, KC_QUOTE),KC_TRANSPARENT, 
+    KC_TRANSPARENT, LT(4, KC_Z),    KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         LT(5, KC_SLASH),KC_TRANSPARENT, 
+                                                    LT_SYM_REP, MT(MOD_LSFT, KC_BSPC),                                MT(MOD_RSFT, KC_TAB),LT(1, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -117,17 +117,17 @@ bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
                             uint8_t* remembered_mods) {
-  if (keycode == MT_SHIFT_REP) { return false; }
+  if (keycode == LT_SYM_REP) { return false; }
   return true;
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(1, KC_BSPC):
-            return g_tapping_term -55;
+        case MT(MOD_LSFT, KC_BSPC):
+            return g_tapping_term -65;
         case MT(MOD_RSFT, KC_TAB):
             return g_tapping_term -65;
-        case MT_SHIFT_REP:
+        case LT_SYM_REP:
             return g_tapping_term -55;
         default:
             return g_tapping_term;
@@ -141,7 +141,7 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
         case MT(MOD_RGUI, KC_K):
         case MT(MOD_RALT, KC_L):
         case LT(1,KC_BSPC):
-        case MT_SHIFT_REP:
+        case LT_SYM_REP:
             return TAPPING_TERM;
         default:
             return QUICK_TAP_TERM;
@@ -266,7 +266,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(169,255,255);
       }
       return false;
-    case MT_SHIFT_REP:
+    case LT_SYM_REP:
       if (record->tap.count) {
         repeat_key_invoke(&record->event);
         return false;
