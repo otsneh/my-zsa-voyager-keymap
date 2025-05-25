@@ -141,6 +141,7 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
         case MT(MOD_RGUI, KC_K):
         case MT(MOD_RALT, KC_L):
         case MT(MOD_LSFT, KC_BSPC):
+        case MT(MOD_RSFT, KC_TAB):
         case LT_SYM_REP:
             return TAPPING_TERM;
         default:
