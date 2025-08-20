@@ -2,12 +2,14 @@
 #include "version.h"
 #include "i18n.h"
 #define MOON_LED_LEVEL LED_LEVEL
-#define ML_SAFE_RANGE SAFE_RANGE
+#ifndef ZSA_SAFE_RANGE
+#define ZSA_SAFE_RANGE SAFE_RANGE
+#endif
 
 #define LT_SYM_REP LT(1, KC_0)
 
 enum custom_keycodes {
-  RGB_SLD = ML_SAFE_RANGE,
+  RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_255,
   HSV_74_255_255,
   HSV_169_255_255,
@@ -18,7 +20,7 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(31, KC_F19)
+#define DUAL_FUNC_0 LT(3, KC_X)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -72,16 +74,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
+  'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 
+  'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 
+  'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 
+  'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 
+  'L', 'L', 'R', 'R'
+);
+
 const uint16_t PROGMEM combo0[] = { KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM combo1[] = { LT(2, KC_J), MT(MOD_RGUI, KC_K), COMBO_END};
-const uint16_t PROGMEM combo2[] = { KC_DOWN, KC_UP, COMBO_END};
-const uint16_t PROGMEM combo3[] = { KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM combo2[] = { KC_C, KC_V, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ENTER),
     COMBO(combo1, KC_ESCAPE),
-    COMBO(combo2, TO(0)),
-    COMBO(combo3, LCTL(KC_A)),
+    COMBO(combo2, LCTL(KC_A)),
 };
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
@@ -107,7 +115,7 @@ bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
 bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
     switch (combo_index) {
         case 1: // JK as ESC combo.
-        case 3: // CV as tmux prefix combo.
+        case 2: // CV as tmux prefix combo.
             return true;
         default:
             return false;
@@ -124,11 +132,11 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT(MOD_LSFT, KC_BSPC):
-            return g_tapping_term -65;
+            return g_tapping_term -80;
         case MT(MOD_RSFT, KC_TAB):
-            return g_tapping_term -65;
+            return g_tapping_term -80;
         case LT_SYM_REP:
-            return g_tapping_term -55;
+            return g_tapping_term -70;
         default:
             return g_tapping_term;
     }
@@ -150,6 +158,12 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 extern rgb_config_t rgb_matrix_config;
+
+RGB hsv_to_rgb_with_value(HSV hsv) {
+  RGB rgb = hsv_to_rgb( hsv );
+  float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+  return (RGB){ f * rgb.r, f * rgb.g, f * rgb.b };
+}
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
@@ -180,9 +194,8 @@ void set_layer_color(int layer) {
     if (!hsv.h && !hsv.s && !hsv.v) {
         rgb_matrix_set_color( i, 0, 0, 0 );
     } else {
-        RGB rgb = hsv_to_rgb( hsv );
-        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
+        RGB rgb = hsv_to_rgb_with_value(hsv);
+        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
   }
 }
@@ -191,31 +204,37 @@ bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
       return false;
   }
-  if (keyboard_config.disable_layer_led) { return false; }
-  switch (biton32(layer_state)) {
-    case 1:
-      set_layer_color(1);
-      break;
-    case 2:
-      set_layer_color(2);
-      break;
-    case 3:
-      set_layer_color(3);
-      break;
-    case 4:
-      set_layer_color(4);
-      break;
-    case 5:
-      set_layer_color(5);
-      break;
-    case 6:
-      set_layer_color(6);
-      break;
-   default:
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+  if (!keyboard_config.disable_layer_led) { 
+    switch (biton32(layer_state)) {
+      case 1:
+        set_layer_color(1);
+        break;
+      case 2:
+        set_layer_color(2);
+        break;
+      case 3:
+        set_layer_color(3);
+        break;
+      case 4:
+        set_layer_color(4);
+        break;
+      case 5:
+        set_layer_color(5);
+        break;
+      case 6:
+        set_layer_color(6);
+        break;
+     default:
+        if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+          rgb_matrix_set_color_all(0, 0, 0);
+        }
+    }
+  } else {
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
       rgb_matrix_set_color_all(0, 0, 0);
-    break;
+    }
   }
+
   return true;
 }
 
