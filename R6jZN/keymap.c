@@ -18,7 +18,7 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(1, KC_N)
+#define DUAL_FUNC_0 LT(11, KC_F21)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_NO,          KC_EXLM,        KC_LABK,        KC_RABK,        KC_AT,                                          KC_BSLS,        KC_LCBR,        KC_RCBR,        KC_DLR,         KC_NO,          KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_GRAVE,       KC_ASTR,        KC_PLUS,        KC_EQUAL,       KC_HASH,                                        KC_CIRC,        KC_LPRN,        KC_RPRN,        KC_COLN,        KC_MINUS,       KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_GRAVE,       KC_PLUS,        KC_ASTR,        KC_EQUAL,       KC_HASH,                                        KC_CIRC,        KC_LPRN,        KC_RPRN,        KC_COLN,        KC_MINUS,       KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TILD,        KC_PERC,        KC_AMPR,        KC_PIPE,        KC_NO,                                          KC_NO,          KC_LBRC,        KC_RBRC,        KC_SCLN,        KC_UNDS,        KC_TRANSPARENT, 
                                                     MO(6),          KC_TRANSPARENT,                                 KC_TRANSPARENT, MO(6)
   ),
