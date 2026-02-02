@@ -20,7 +20,7 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(3, KC_F2)
+#define DUAL_FUNC_0 LT(10, KC_F21)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -132,8 +132,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT(MOD_LSFT, KC_BSPC):
-            return g_tapping_term -80;
-        case MT(MOD_RCTL, KC_QUOTE):
             return g_tapping_term -80;
         case MT(MOD_RSFT, KC_TAB):
             return g_tapping_term -80;
