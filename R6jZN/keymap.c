@@ -157,6 +157,37 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+bool is_tap_flow_key(uint16_t keycode) {
+    // Ignore certain layers actively used in typing in tap flow.
+    switch (keycode) {
+      case LT(2,KC_J):
+      case LT(3,KC_F):
+      case LT(1,KC_SPACE):
+        return false;
+      default:
+        break;
+    }
+
+    switch (keycode) {
+      case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+        keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+        break;
+      case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+        keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+        break;
+    }
+    switch (keycode) {
+      case KC_SPC:
+      case KC_A ... KC_Z:
+      case KC_DOT:
+      case KC_COMM:
+      case KC_SCLN:
+      case KC_SLSH:
+        return true;
+    }
+    return false;
+  }
+
 extern rgb_config_t rgb_matrix_config;
 
 RGB hsv_to_rgb_with_value(HSV hsv) {
