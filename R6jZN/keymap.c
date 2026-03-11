@@ -18,7 +18,7 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(2, KC_P)
+#define DUAL_FUNC_0 LT(14, KC_W)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -30,10 +30,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_NO,          KC_EXLM,        KC_LABK,        KC_RABK,        KC_AT,                                          KC_BSLS,        KC_LCBR,        KC_RCBR,        KC_DLR,         KC_NO,          KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TILD,        KC_PLUS,        KC_ASTR,        KC_EQUAL,       KC_HASH,                                        KC_CIRC,        KC_LPRN,        KC_RPRN,        KC_COLN,        KC_MINUS,       KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_GRAVE,       KC_PERC,        KC_AMPR,        KC_PIPE,        KC_NO,                                          KC_NO,          KC_LBRC,        KC_RBRC,        KC_SCLN,        KC_UNDS,        KC_TRANSPARENT, 
-                                                    MO(6),          KC_TRANSPARENT,                                 KC_TRANSPARENT, MO(6)
+    KC_TRANSPARENT, KC_NO,          KC_EXLM,        KC_LABK,        KC_RABK,        KC_AT,                                          KC_CIRC,        KC_LPRN,        KC_RPRN,        KC_DLR,         KC_NO,          KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_BSLS,        KC_EQUAL,       KC_ASTR,        KC_PLUS,        KC_HASH,                                        KC_PIPE,        KC_MINUS,       KC_UNDS,        KC_COLN,        KC_TILD,        KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_BSLS,        KC_BSLS,        KC_LCBR,        KC_RCBR,        KC_NO,                                          KC_NO,          KC_LBRC,        KC_RBRC,        KC_SCLN,        KC_GRAVE,       KC_TRANSPARENT, 
+                                                    MO(6),          KC_TRANSPARENT,                                 KC_TRANSPARENT, LT(6, KC_SPACE)
   ),
   [2] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -115,7 +115,7 @@ void keyboard_post_init_user(void) {
 }
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [1] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,241,194}, {36,218,204}, {36,218,204}, {169,238,206}, {0,0,0}, {121,218,204}, {148,218,204}, {148,218,204}, {219,218,204}, {86,241,194}, {0,0,0}, {121,218,204}, {191,111,174}, {191,111,174}, {191,111,174}, {0,0,0}, {223,133,237}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {169,238,206}, {36,218,204}, {36,218,204}, {86,241,194}, {0,0,0}, {0,0,0}, {86,241,194}, {36,218,204}, {36,218,204}, {148,218,204}, {121,218,204}, {0,0,0}, {0,0,0}, {36,218,204}, {36,218,204}, {148,218,204}, {121,218,204}, {0,0,0}, {0,0,0}, {223,133,237} },
+    [1] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,241,194}, {36,218,204}, {36,218,204}, {86,241,194}, {0,0,0}, {169,238,206}, {148,218,204}, {148,218,204}, {148,218,204}, {86,241,194}, {0,0,0}, {169,238,206}, {169,238,206}, {36,218,204}, {36,218,204}, {0,0,0}, {223,133,237}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,241,194}, {36,218,204}, {36,218,204}, {86,241,194}, {0,0,0}, {0,0,0}, {86,241,194}, {148,218,204}, {148,218,204}, {152,218,204}, {121,218,204}, {0,0,0}, {0,0,0}, {36,218,204}, {36,218,204}, {152,218,204}, {121,218,204}, {0,0,0}, {0,0,0}, {223,133,237} },
 
     [2] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {152,218,204}, {152,218,204}, {152,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, {152,218,204}, {152,218,204}, {152,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, {152,218,204}, {152,218,204}, {152,218,204}, {0,0,0}, {152,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {210,162,224}, {210,162,224}, {210,162,224}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
@@ -182,7 +182,6 @@ bool rgb_matrix_indicators_user(void) {
 
   return true;
 }
-
 
 
 
