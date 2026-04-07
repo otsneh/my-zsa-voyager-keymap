@@ -11,7 +11,7 @@
 #undef MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 10
 
-#define SERIAL_NUMBER "R6jZN/Wv7Pxz"
+#define SERIAL_NUMBER "R6jZN/GGeNzV"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 4
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
