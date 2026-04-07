@@ -6,8 +6,6 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#define LT_SYM_REP LT(1, KC_0)
-
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_255,
@@ -28,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_TRANSPARENT, 
     KC_TRANSPARENT, MT(MOD_LCTL, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LGUI, KC_D),LT(3, KC_F),    KC_G,                                           KC_H,           LT(2, KC_J),    MT(MOD_RGUI, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RCTL, KC_QUOTE),KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_Z,           KC_X,           KC_C,           LT(4, KC_V),    KC_B,                                           KC_N,           LT(5, KC_M),    KC_COMMA,       KC_DOT,         KC_SLASH,       KC_TRANSPARENT, 
-                                                    LT_SYM_REP, KC_LEFT_SHIFT,                                  MO(1),          KC_SPACE
+                                                    QK_REP, KC_LEFT_SHIFT,                                  MO(1),          KC_SPACE
   ),
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -127,19 +125,11 @@ bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
 }
 #endif
 
-bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
-                            uint8_t* remembered_mods) {
-  if (keycode == LT_SYM_REP) { return false; }
-  return true;
-}
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_LEFT_SHIFT:
             return g_tapping_term -80;
         case MO(1):
-            return g_tapping_term -80;
-        case LT_SYM_REP:
             return g_tapping_term -80;
         default:
             return g_tapping_term;
@@ -154,7 +144,6 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
         case MT(MOD_RALT, KC_L):
         case MT(MOD_LSFT, KC_BSPC):
         case MT(MOD_RSFT, KC_TAB):
-        case LT_SYM_REP:
             return TAPPING_TERM;
         default:
             return QUICK_TAP_TERM;
@@ -339,12 +328,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(169,255,255);
       }
       return false;
-    case LT_SYM_REP:
-      if (record->tap.count) {
-        repeat_key_invoke(&record->event);
-        return false;
-      }
-      break;
   }
   return true;
 }
