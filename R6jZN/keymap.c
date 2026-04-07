@@ -18,7 +18,7 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(13, KC_F14)
+#define DUAL_FUNC_0 LT(14, KC_F6)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_TRANSPARENT, 
     KC_TRANSPARENT, MT(MOD_LCTL, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LGUI, KC_D),LT(3, KC_F),    KC_G,                                           KC_H,           LT(2, KC_J),    MT(MOD_RGUI, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RCTL, KC_QUOTE),KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_Z,           KC_X,           KC_C,           LT(4, KC_V),    KC_B,                                           KC_N,           LT(5, KC_M),    KC_COMMA,       KC_DOT,         KC_SLASH,       KC_TRANSPARENT, 
-                                                    QK_REP, KC_LEFT_SHIFT,                                  MO(1),          KC_SPACE
+                                                    QK_REP, MT(MOD_LSFT, KC_BSPC),                                MO(1),          KC_SPACE
   ),
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -83,15 +83,13 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 const uint16_t PROGMEM combo0[] = { KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM combo1[] = { LT(2, KC_J), MT(MOD_RGUI, KC_K), COMBO_END};
 const uint16_t PROGMEM combo2[] = { KC_C, LT(4, KC_V), COMBO_END};
-const uint16_t PROGMEM combo3[] = { KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM combo4[] = { KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM combo3[] = { KC_Z, KC_X, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ENTER),
     COMBO(combo1, KC_ESCAPE),
     COMBO(combo2, LCTL(KC_A)),
     COMBO(combo3, KC_TAB),
-    COMBO(combo4, KC_BSPC),
 };
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
@@ -127,7 +125,7 @@ bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_LEFT_SHIFT:
+        case MT(MOD_LSFT, KC_BSPC):
             return g_tapping_term -80;
         case MO(1):
             return g_tapping_term -80;
